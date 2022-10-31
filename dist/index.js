@@ -2245,14 +2245,15 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 
 const runner = __webpack_require__( 9561 );
 const debug = __webpack_require__( 5800 );
+const { getOctokit } = __webpack_require__( 5438 );
 
-debug( 'runner: ' + JSON.stringify( runner ) );
 debug( `Debug Runner: ${ runner }.` );
 module.exports = {
 	name: 'update-milestone',
 	events: [ 'workflow_dispatch' ],
 	actions: [ 'update-milestone' ],
 	runner,
+	getOctokit,
 };
 
 
@@ -2301,11 +2302,11 @@ const getRunnerTask = ( eventName, action ) => {
 const runner = async ( context, octokit ) => {
 	const task = getRunnerTask( context.eventName, context.payload.action );
 	if ( typeof task === 'function' ) {
-		debug( `todoRunner: Executing the ${ task.name } task.` );
+		debug( `updateMilestone: Executing the ${ task.name } task.` );
 		await task( context, octokit );
 	} else {
 		setFailed(
-			`todoRunner: There is no configured task for the event = '${ context.eventName }' and the payload action = '${ context.payload.action }'`
+			`updateMilestone: There is no configured task for the event = '${ context.eventName }' and the payload action = '${ context.payload.action }'`
 		);
 	}
 };
