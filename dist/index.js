@@ -2271,7 +2271,9 @@ const debug = __webpack_require__( 5800 );
 const { setFailed, debug: coreDebug } = __webpack_require__( 2186 );
 debug( `I'm running this code` );
 const runner = async ( context, octokit, config ) => {
-	coreDebug( `eventName: ${ context.eventName }.` );
+	console.log( 'I am inside the runner' );
+	console.log( 'context.eventName', context.eventName );
+	console.log( 'context.payload.action', context.payload.action );
 	debug( `eventName: ${ context.eventName }.` );
 	coreDebug( `payload: ${ context.payload.action }.` );
 };
