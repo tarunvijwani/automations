@@ -2270,16 +2270,67 @@ __webpack_require__.r(__webpack_exports__);
  */
 const debug = __webpack_require__( 5800 );
 const { setFailed, debug: coreDebug } = __webpack_require__( 2186 );
-debug( `I'm running this code updated` );
+
+const updateMilestoneHandler = __webpack_require__( 8223 );
+
+/**
+ * @typedef {import('@actions/github').GitHub} GitHub
+ * @typedef {import('@actions/github').context} GitHubContext
+ * @typedef {import('../../typedefs').AutomationTaskRunner} AutomationTaskRunner
+ */
+const runnerMatrix = {
+	workflow_dispatch: updateMilestoneHandler,
+	release: {
+		published: updateMilestoneHandler,
+	},
+};
+const getRunnerTask = ( eventName, action ) => {
+	if ( ! runnerMatrix[ eventName ] ) {
+		return;
+	}
+	return action === undefined
+		? runnerMatrix[ eventName ]
+		: runnerMatrix[ eventName ][ action ];
+};
+
+/**
+ * The task runner for this action
+ *
+ * @param {GitHubContext} context Context for the job run (github).
+ * @param {GitHub}        octokit GitHub api helper.
+ * @param {Object}        config  Config object.
+ *
+ * @return {AutomationTaskRunner} task runner.
+ */
 const runner = async ( context, octokit, config ) => {
-	console.log( 'I am inside the runner' );
-	console.log( 'context.eventName', context.eventName );
-	console.log( 'context.payload.action', context.payload.action );
-	debug( `eventName: ${ context.eventName }.` );
-	coreDebug( `payload: ${ context.payload.action }.` );
+	const task = getRunnerTask( context.eventName, context.payload.action );
+	if ( typeof task === 'function' ) {
+		debug( `assignMilestoneRunner: Executing the ${ task.name } task.` );
+		await task( context, octokit, config );
+	} else {
+		setFailed(
+			`assignMilestoneRunner: There is no configured task for the event = '${ context.eventName }' and the payload action = '${ context.payload.action }'`
+		);
+	}
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (runner);
+
+
+/***/ }),
+
+/***/ 8223:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/**
+ * External dependencies
+ */
+const core = __webpack_require__( 2186 );
+
+module.exports = async ( context, octokit, config ) => {
+	const type = context.payload.ref_type;
+	core.debug( 'Received config in runner: ' + JSON.stringify( config ) );
+};
 
 
 /***/ }),
