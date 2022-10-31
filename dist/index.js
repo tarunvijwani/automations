@@ -2316,7 +2316,7 @@ const runner = async ( context, octokit, config ) => {
 		);
 	}
 };
-
+debug( 'runner inside runner: ' + JSON.stringify( runner ) );
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (runner);
 
 
