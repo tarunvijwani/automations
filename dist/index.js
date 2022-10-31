@@ -2259,13 +2259,8 @@ module.exports = {
 /***/ }),
 
 /***/ 9561:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
 /**
  * External dependencies
  */
@@ -2274,16 +2269,8 @@ const { setFailed, debug: coreDebug } = __webpack_require__( 2186 );
 
 const updateMilestoneHandler = __webpack_require__( 8223 );
 
-/**
- * @typedef {import('@actions/github').GitHub} GitHub
- * @typedef {import('@actions/github').context} GitHubContext
- * @typedef {import('../../typedefs').AutomationTaskRunner} AutomationTaskRunner
- */
 const runnerMatrix = {
 	workflow_dispatch: updateMilestoneHandler,
-	release: {
-		published: updateMilestoneHandler,
-	},
 };
 const getRunnerTask = ( eventName, action ) => {
 	console.log( 'Inside getRunnerTask' );
@@ -2303,20 +2290,28 @@ const getRunnerTask = ( eventName, action ) => {
  *
  * @return {AutomationTaskRunner} task runner.
  */
+/**
+ * The task runner for the Todos action
+ *
+ * @param {GitHubContext} context Context for the job run (github).
+ * @param {GitHub}        octokit GitHub api helper.
+ *
+ * @return {AutomationTaskRunner} task runner.
+ */
 const runner = async ( context, octokit ) => {
-	console.log( 'Inside runner' );
 	const task = getRunnerTask( context.eventName, context.payload.action );
 	if ( typeof task === 'function' ) {
-		debug( `assignMilestoneRunner: Executing the ${ task.name } task.` );
+		debug( `todoRunner: Executing the ${ task.name } task.` );
 		await task( context, octokit );
 	} else {
 		setFailed(
-			`assignMilestoneRunner: There is no configured task for the event = '${ context.eventName }' and the payload action = '${ context.payload.action }'`
+			`todoRunner: There is no configured task for the event = '${ context.eventName }' and the payload action = '${ context.payload.action }'`
 		);
 	}
 };
+
+module.exports = runner;
 debug( 'runner inside runner: ' + runner );
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (runner);
 
 
 /***/ }),
@@ -35683,34 +35678,6 @@ module.exports = require("zlib");;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nmd = (module) => {
