@@ -2245,7 +2245,8 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 
 const runner = __webpack_require__( 9561 );
 const debug = __webpack_require__( 5800 );
-console.log( 'runner:', runner );
+
+debug( 'runner: ' + JSON.stringify( runner ) );
 debug( `Debug Runner: ${ runner }.` );
 module.exports = {
 	name: 'update-milestone',
