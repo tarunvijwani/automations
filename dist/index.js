@@ -2236,7 +2236,7 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const runner = __nccwpck_require__( 7487 );
-
+debug( `I'm running this codess` );
 module.exports = {
 	name: 'update-milestone',
 	events: [ 'workflow_dispatch' ],
@@ -2255,7 +2255,7 @@ module.exports = {
  */
 const debug = __nccwpck_require__( 1655 );
 //const { setFailed, debug: coreDebug } = require( '@actions/core' );
-
+debug( `I'm running this code` );
 const runner = async ( context, octokit, config ) => {
 	debug( `eventName: ${ context.eventName }.` );
 	debug( `payload: ${ context.payload.action }.` );
