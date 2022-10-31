@@ -2390,6 +2390,7 @@ const automations = __webpack_require__( 9407 );
 
 	const octokit = GitHub.getOctokit( token );
 
+	debug( `This doesn't have the the value: '${ context }'` );
 	debug(
 		`initialize: Received event = '${ context.eventName }', action = '${ context.payload.action }'`
 	);
