@@ -2245,7 +2245,6 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 
 const runner = __webpack_require__( 9561 );
 const debug = __webpack_require__( 5800 );
-const { getConfig } = __webpack_require__( 4364 );
 
 debug( 'runner: ' + JSON.stringify( runner ) );
 debug( `Debug Runner: ${ runner }.` );
@@ -2254,7 +2253,6 @@ module.exports = {
 	events: [ 'workflow_dispatch' ],
 	actions: [ 'update-milestone' ],
 	runner,
-	getConfig,
 };
 
 
@@ -2302,16 +2300,15 @@ const getRunnerTask = ( eventName, action ) => {
  *
  * @param {GitHubContext} context Context for the job run (github).
  * @param {GitHub}        octokit GitHub api helper.
- * @param {Object}        config  Config object.
  *
  * @return {AutomationTaskRunner} task runner.
  */
-const runner = async ( context, octokit, config ) => {
+const runner = async ( context, octokit ) => {
 	console.log( 'Inside runner' );
 	const task = getRunnerTask( context.eventName, context.payload.action );
 	if ( typeof task === 'function' ) {
 		debug( `assignMilestoneRunner: Executing the ${ task.name } task.` );
-		await task( context, octokit, config );
+		await task( context, octokit );
 	} else {
 		setFailed(
 			`assignMilestoneRunner: There is no configured task for the event = '${ context.eventName }' and the payload action = '${ context.payload.action }'`
@@ -2332,9 +2329,11 @@ debug( 'runner inside runner: ' + runner );
  */
 const core = __webpack_require__( 2186 );
 
-module.exports = async ( context, octokit, config ) => {
+module.exports = async ( context, octokit ) => {
 	const type = context.payload.ref_type;
-	core.debug( 'Received config in runner: ' + JSON.stringify( config ) );
+	core.debug( 'Received config in runner: ' + JSON.stringify( context ) );
+	core.debug( 'Received octokit in runner: ' + JSON.stringify( octokit ) );
+	core.debug( 'Received type in runner: ' + JSON.stringify( type ) );
 	console.log( 'inside update milestone handler' );
 };
 
@@ -35533,14 +35532,6 @@ function wrappy (fn, cb) {
     return ret
   }
 }
-
-
-/***/ }),
-
-/***/ 4364:
-/***/ ((module) => {
-
-module.exports = eval("require")("./get-config");
 
 
 /***/ }),
