@@ -2245,7 +2245,6 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const runner = __webpack_require__( 9561 );
-debug( `I'm running this codess` );
 module.exports = {
 	name: 'update-milestone',
 	events: [ 'workflow_dispatch' ],
