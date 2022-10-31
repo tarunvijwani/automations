@@ -2250,7 +2250,6 @@ debug( `Debug Runner: ${ runner }.` );
 module.exports = {
 	name: 'update-milestone',
 	events: [ 'workflow_dispatch' ],
-	actions: [ 'update-milestone' ],
 	runner,
 };
 
@@ -2478,6 +2477,11 @@ const { escapeRegExp } = __webpack_require__( 250 );
 			debug( `initialize: Skipping runner ${ name }` );
 			debug( `This is events ${ events }` );
 			debug( `This is context.eventName ${ context.eventName }` );
+			debug(
+				`This is events.includes( context.eventName ) ${ events.includes(
+					context.eventName
+				) }`
+			);
 		}
 	}
 
