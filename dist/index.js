@@ -2397,6 +2397,11 @@ const automations = __webpack_require__( 9407 );
 		) }'`
 	);
 	debug(
+		`initialize: Received event stringify = '${ JSON.stringify(
+			context
+		) }', action = '${ context.payload.action }'`
+	);
+	debug(
 		`initialize: Received event = '${ context.eventName }', action = '${ context.payload.action }'`
 	);
 
