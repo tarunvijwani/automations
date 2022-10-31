@@ -2240,7 +2240,7 @@ const runner = __nccwpck_require__( 7487 );
 module.exports = {
 	name: 'update-milestone',
 	events: [ 'workflow_dispatch' ],
-	actions: [ 'update-milestone' ],
+	//actions: [ 'update-milestone' ],
 	runner,
 };
 
