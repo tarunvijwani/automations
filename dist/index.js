@@ -2245,6 +2245,7 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 
 const runner = __webpack_require__( 9561 );
 const debug = __webpack_require__( 5800 );
+const { getConfig } = __webpack_require__( 4364 );
 
 debug( 'runner: ' + JSON.stringify( runner ) );
 debug( `Debug Runner: ${ runner }.` );
@@ -2253,6 +2254,7 @@ module.exports = {
 	events: [ 'workflow_dispatch' ],
 	actions: [ 'update-milestone' ],
 	runner,
+	getConfig,
 };
 
 
@@ -2316,7 +2318,7 @@ const runner = async ( context, octokit, config ) => {
 		);
 	}
 };
-debug( 'runner inside runner: ' + JSON.stringify( runner ) );
+debug( 'runner inside runner: ' + runner );
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (runner);
 
 
@@ -35531,6 +35533,14 @@ function wrappy (fn, cb) {
     return ret
   }
 }
+
+
+/***/ }),
+
+/***/ 4364:
+/***/ ((module) => {
+
+module.exports = eval("require")("./get-config");
 
 
 /***/ }),
