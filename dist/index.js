@@ -2245,7 +2245,6 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 
 const runner = __webpack_require__( 9561 );
 const debug = __webpack_require__( 5800 );
-const { getOctokit } = __webpack_require__( 5438 );
 
 debug( `Debug Runner: ${ runner }.` );
 module.exports = {
@@ -2253,7 +2252,6 @@ module.exports = {
 	events: [ 'workflow_dispatch' ],
 	actions: [ 'update-milestone' ],
 	runner,
-	getOctokit,
 };
 
 
@@ -2478,6 +2476,8 @@ const { escapeRegExp } = __webpack_require__( 250 );
 			}
 		} else {
 			debug( `initialize: Skipping runner ${ name }` );
+			debug( `This is events ${ events }` );
+			debug( `This is context.eventName ${ context.eventName }` );
 		}
 	}
 
