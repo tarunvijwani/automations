@@ -2417,6 +2417,7 @@ const context = GitHub.context;
 const debug = __webpack_require__( 5800 );
 const ifNotFork = __webpack_require__( 3789 );
 const automations = __webpack_require__( 9407 );
+const { escapeRegExp } = __webpack_require__( 250 );
 
 /**
  * @typedef {import('./typedefs').AutomationTaskRunner} AutomationTaskRunner
@@ -2475,6 +2476,8 @@ const automations = __webpack_require__( 9407 );
 					`initialize: Runner ${ name } failed with error: ${ error }`
 				);
 			}
+		} else {
+			debug( `initialize: Skipping runner ${ name }` );
 		}
 	}
 
