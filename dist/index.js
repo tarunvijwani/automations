@@ -921,13 +921,7 @@ const getRunnerTask = ( eventName, action ) => {
  * @return {AutomationTaskRunner} task runner.
  */
 const runner = async ( context, octokit, config ) => {
-	coreDebug(
-		`stringify: This doesn't have the the value: '${ JSON.stringify(
-			context
-		) }'`
-	);
 	const task = getRunnerTask( context.eventName, context.payload.action );
-	coreDebug( 'Received config: ' + JSON.stringify( config ) );
 	if ( typeof task === 'function' ) {
 		debug( `releaseRunner: Executing the ${ task.name } task.` );
 		await task( context, octokit, config );
@@ -2395,17 +2389,6 @@ const automations = __webpack_require__( 9407 );
 
 	const octokit = GitHub.getOctokit( token );
 
-	debug( `This doesn't have the the value: '${ context }'` );
-	coreDebug(
-		`stringify: This doesn't have the the value: '${ JSON.stringify(
-			context
-		) }'`
-	);
-	debug(
-		`initialize: Received event stringify = '${ JSON.stringify(
-			context
-		) }', action = '${ context.payload.action }'`
-	);
 	debug(
 		`initialize: Received event = '${ context.eventName }', action = '${ context.payload.action }'`
 	);
