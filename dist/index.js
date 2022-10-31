@@ -2244,9 +2244,7 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const runner = __webpack_require__( 9561 );
-const debug = __webpack_require__( 5800 );
 
-debug( `Debug Runner: ${ runner }.` );
 module.exports = {
 	name: 'update-milestone',
 	events: [ 'workflow_dispatch' ],
@@ -2325,10 +2323,8 @@ debug( 'runner inside runner: ' + runner );
 const core = __webpack_require__( 2186 );
 
 module.exports = async ( context, octokit ) => {
-	const type = context.payload.ref_type;
-	core.debug( 'Received config in runner: ' + JSON.stringify( context ) );
+	core.debug( 'Received context in runner: ' + JSON.stringify( context ) );
 	core.debug( 'Received octokit in runner: ' + JSON.stringify( octokit ) );
-	core.debug( 'Received type in runner: ' + JSON.stringify( type ) );
 	console.log( 'inside update milestone handler' );
 };
 
