@@ -2269,7 +2269,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 const debug = __webpack_require__( 5800 );
 const { setFailed, debug: coreDebug } = __webpack_require__( 2186 );
-debug( `I'm running this code` );
+debug( `I'm running this code updated` );
 const runner = async ( context, octokit, config ) => {
 	console.log( 'I am inside the runner' );
 	console.log( 'context.eventName', context.eventName );
