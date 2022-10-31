@@ -2285,6 +2285,7 @@ const runnerMatrix = {
 	},
 };
 const getRunnerTask = ( eventName, action ) => {
+	console.log( 'Inside getRunnerTask' );
 	if ( ! runnerMatrix[ eventName ] ) {
 		return;
 	}
@@ -2303,6 +2304,7 @@ const getRunnerTask = ( eventName, action ) => {
  * @return {AutomationTaskRunner} task runner.
  */
 const runner = async ( context, octokit, config ) => {
+	console.log( 'Inside runner' );
 	const task = getRunnerTask( context.eventName, context.payload.action );
 	if ( typeof task === 'function' ) {
 		debug( `assignMilestoneRunner: Executing the ${ task.name } task.` );
@@ -2330,6 +2332,7 @@ const core = __webpack_require__( 2186 );
 module.exports = async ( context, octokit, config ) => {
 	const type = context.payload.ref_type;
 	core.debug( 'Received config in runner: ' + JSON.stringify( config ) );
+	console.log( 'inside update milestone handler' );
 };
 
 
