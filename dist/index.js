@@ -2344,19 +2344,44 @@ module.exports = runner;
  * External dependencies
  */
 const core = __webpack_require__( 2186 );
+
+const debug = __webpack_require__( 5800 );
 const { getMilestoneByTitle } = __webpack_require__( 1606 );
 
 module.exports = async ( context, octokit, config ) => {
-	const { owner, repo } = context.repo;
-	const targetMilestone = config.targetMilestone;
-	// Get existing milestone
-	const milestone = await getMilestoneByTitle(
+	const targetMilestone = await getMilestoneByTitle(
 		context,
 		octokit,
-		targetMilestone,
+		config.targetMilestone,
 		'closed'
 	);
-	core.debug( 'milestone: ' + JSON.stringify( milestone ) );
+	core.debug(
+		'Found milestone to update ' + JSON.stringify( targetMilestone )
+	);
+
+	const updateDueDate = ( milestoneNumber, dueDate ) => {
+		return octokit.rest.issues.updateMilestone( {
+			owner: context.repo.owner,
+			repo: context.repo.repo,
+			milestone_number: milestoneNumber,
+			due_on: dueDate,
+		} );
+	};
+	const date = new Date();
+	const dueDate = date.toISOString();
+	const milestoneUpdate = await updateDueDate(
+		targetMilestone.number,
+		dueDate
+	);
+	if ( ! milestoneUpdate ) {
+		debug(
+			`Update Milestone: Could not update the due date of the milestone: ${ config.targetMilestone }`
+		);
+		return;
+	}
+	debug(
+		`Update Milestone: Milstone ${ config.targetMilestone } successfully updated with the ${ dueDate } due date.`
+	);
 };
 
 
