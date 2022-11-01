@@ -2260,8 +2260,9 @@ module.exports = {
 /**
  * External dependencies
  */
-const debug = __webpack_require__( 5800 );
 const { setFailed, debug: coreDebug } = __webpack_require__( 2186 );
+
+const debug = __webpack_require__( 5800 );
 
 const updateMilestoneHandler = __webpack_require__( 8223 );
 
@@ -2269,7 +2270,6 @@ const runnerMatrix = {
 	workflow_dispatch: updateMilestoneHandler,
 };
 const getRunnerTask = ( eventName, action ) => {
-	console.log( 'Inside getRunnerTask' );
 	if ( ! runnerMatrix[ eventName ] ) {
 		return;
 	}
@@ -2278,25 +2278,7 @@ const getRunnerTask = ( eventName, action ) => {
 		: runnerMatrix[ eventName ][ action ];
 };
 
-/**
- * The task runner for this action
- *
- * @param {GitHubContext} context Context for the job run (github).
- * @param {GitHub}        octokit GitHub api helper.
- *
- * @return {AutomationTaskRunner} task runner.
- */
-/**
- * The task runner for the Todos action
- *
- * @param {GitHubContext} context Context for the job run (github).
- * @param {GitHub}        octokit GitHub api helper.
- *
- * @return {AutomationTaskRunner} task runner.
- */
 const runner = async ( context, octokit ) => {
-	console.log( 'Inside runner so runner is running' );
-	debug( `updateMilestone: inside runner` );
 	const task = getRunnerTask( context.eventName, context.payload.action );
 	if ( typeof task === 'function' ) {
 		debug( `updateMilestone: Executing the ${ task.name } task.` );
@@ -2309,7 +2291,6 @@ const runner = async ( context, octokit ) => {
 };
 
 module.exports = runner;
-debug( 'runner inside runner: ' + runner );
 
 
 /***/ }),
@@ -2323,9 +2304,8 @@ debug( 'runner inside runner: ' + runner );
 const core = __webpack_require__( 2186 );
 
 module.exports = async ( context, octokit ) => {
-	core.debug( 'Received context in runner: ' + JSON.stringify( context ) );
-	core.debug( 'Received octokit in runner: ' + JSON.stringify( octokit ) );
-	console.log( 'inside update milestone handler' );
+	const { owner, repo } = context.repo;
+	core.debug( 'context: ' + JSON.stringify( context ) );
 };
 
 
