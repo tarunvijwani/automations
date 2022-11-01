@@ -2288,7 +2288,7 @@ const getConfig = __webpack_require__( 8927 );
 
 module.exports = {
 	name: 'update-milestone',
-	events: [ 'workflow_dispatch' ],
+	events: [ 'release' ],
 	runner,
 	getConfig,
 };
@@ -2309,7 +2309,7 @@ const debug = __webpack_require__( 5800 );
 const updateMilestoneHandler = __webpack_require__( 8223 );
 
 const runnerMatrix = {
-	workflow_dispatch: updateMilestoneHandler,
+	release: updateMilestoneHandler,
 };
 const getRunnerTask = ( eventName, action ) => {
 	if ( ! runnerMatrix[ eventName ] ) {
@@ -2530,24 +2530,13 @@ const { escapeRegExp } = __webpack_require__( 250 );
 				 */
 				const task = ifNotFork( runner );
 				const config = await getConfig( context, octokit );
-				coreDebug(
-					`Created config: ${ config } : ` + JSON.stringify( config )
-				);
+
 				await task( context, octokit, config );
 			} catch ( error ) {
 				setFailed(
 					`initialize: Runner ${ name } failed with error: ${ error }`
 				);
 			}
-		} else {
-			debug( `initialize: Skipping runner ${ name }` );
-			debug( `This is events ${ events }` );
-			debug( `This is context.eventName ${ context.eventName }` );
-			debug(
-				`This is events.includes( context.eventName ) ${ events.includes(
-					context.eventName
-				) }`
-			);
 		}
 	}
 
