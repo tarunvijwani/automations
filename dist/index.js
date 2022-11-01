@@ -2310,6 +2310,9 @@ const updateMilestoneHandler = __webpack_require__( 8223 );
 
 const runnerMatrix = {
 	release: updateMilestoneHandler,
+	release: {
+		published: updateMilestoneHandler,
+	},
 };
 const getRunnerTask = ( eventName, action ) => {
 	if ( ! runnerMatrix[ eventName ] ) {
