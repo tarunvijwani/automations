@@ -2240,11 +2240,50 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 
 /***/ }),
 
+/***/ 8927:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/**
+ * External dependencies
+ */
+const { setFailed, getInput: coreGetInput } = __webpack_require__( 2186 );
+
+const inputs = {
+	targetMilestone: {
+		input: 'target_milestone',
+		default: 'minor',
+		required: false,
+	},
+};
+
+const getInput = ( input ) => {
+	const value = coreGetInput( input.input ) || input.default;
+
+	if ( input.required && ! value ) {
+		throw new Error( `Missing required input ${ input.input }` );
+	}
+
+	return value;
+};
+
+module.exports = async () => {
+	try {
+		return {
+			targetMilestone: getInput( inputs.targetMilestone ),
+		};
+	} catch ( error ) {
+		setFailed( `Target milestone: ${ error }` );
+	}
+};
+
+
+/***/ }),
+
 /***/ 3707:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const runner = __webpack_require__( 9561 );
-const { getConfig } = __webpack_require__( 6938 );
+const getConfig = __webpack_require__( 8927 );
 
 module.exports = {
 	name: 'update-milestone',
@@ -35517,14 +35556,6 @@ function wrappy (fn, cb) {
     return ret
   }
 }
-
-
-/***/ }),
-
-/***/ 6938:
-/***/ ((module) => {
-
-module.exports = eval("require")("./config");
 
 
 /***/ }),
