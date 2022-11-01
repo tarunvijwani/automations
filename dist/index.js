@@ -2364,9 +2364,7 @@ module.exports = async ( context, octokit, config ) => {
 	debug(
 		`Update Milestone: Found the target milestone: ${ config.targetMilestone }`
 	);
-	debug(
-		`Update Milestone: octokit: ${ JSON.stringify( targetMilestone ) }`
-	);
+
 	if ( targetMilestone.due_on !== null ) {
 		debug(
 			`Update Milestone: Target milestone: ${ config.targetMilestone } already have a due date.`
@@ -2384,8 +2382,7 @@ module.exports = async ( context, octokit, config ) => {
 
 	const date = new Date();
 	const dueDate = date.toISOString();
-	debug( `Due date: ${ dueDate }` );
-	debug( `targetMilestone.number: ${ targetMilestone.number }` );
+
 	const milestoneUpdate = await updateDueDate(
 		targetMilestone.number,
 		dueDate
