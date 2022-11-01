@@ -2364,6 +2364,7 @@ module.exports = async ( context, octokit, config ) => {
 	debug(
 		`Update Milestone: Found the target milestone: ${ config.targetMilestone }`
 	);
+	debug( `Update Milestone: octokit: ${ JSON.stringify( octokit ) }` );
 
 	const updateDueDate = ( milestoneNumber, dueDate ) => {
 		return octokit.rest.issues.updateMilestone( {
