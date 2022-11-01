@@ -2251,7 +2251,7 @@ const { setFailed, getInput: coreGetInput } = __webpack_require__( 2186 );
 const inputs = {
 	targetMilestone: {
 		input: 'target_milestone',
-		default: 'minor',
+		default: '',
 		required: false,
 	},
 };
@@ -2260,7 +2260,9 @@ const getInput = ( input ) => {
 	const value = coreGetInput( input.input ) || input.default;
 
 	if ( input.required && ! value ) {
-		throw new Error( `Missing required input ${ input.input }` );
+		throw new Error(
+			`Missing required input ${ input.input } your input: ${ input }`
+		);
 	}
 
 	return value;

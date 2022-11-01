@@ -24,7 +24,7 @@ inputs:
         description: |
             Milestone title for modifying any milestone.
         required: false
-        default: minor
+        default: ''
 runs:
     using: 'node12'
     main: 'dist/index.js'
