@@ -2367,7 +2367,7 @@ module.exports = async ( context, octokit, config ) => {
 	debug(
 		`Update Milestone: octokit: ${ JSON.stringify( targetMilestone ) }`
 	);
-	if ( ! targetMilestone.due_on !== null ) {
+	if ( targetMilestone.due_on !== null ) {
 		debug(
 			`Update Milestone: Target milestone: ${ config.targetMilestone } already have a due date.`
 		);
