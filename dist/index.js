@@ -2244,11 +2244,13 @@ module.exports = async ( { context, octokit, config = {}, issue }, data ) => {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const runner = __webpack_require__( 9561 );
+const { getConfig } = __webpack_require__( 6938 );
 
 module.exports = {
 	name: 'update-milestone',
 	events: [ 'workflow_dispatch' ],
 	runner,
+	getConfig,
 };
 
 
@@ -2278,11 +2280,11 @@ const getRunnerTask = ( eventName, action ) => {
 		: runnerMatrix[ eventName ][ action ];
 };
 
-const runner = async ( context, octokit ) => {
+const runner = async ( context, octokit, config ) => {
 	const task = getRunnerTask( context.eventName, context.payload.action );
 	if ( typeof task === 'function' ) {
 		debug( `updateMilestone: Executing the ${ task.name } task.` );
-		await task( context, octokit );
+		await task( context, octokit, config );
 	} else {
 		setFailed(
 			`updateMilestone: There is no configured task for the event = '${ context.eventName }' and the payload action = '${ context.payload.action }'`
@@ -2303,8 +2305,10 @@ module.exports = runner;
  */
 const core = __webpack_require__( 2186 );
 
-module.exports = async ( context, octokit ) => {
+module.exports = async ( context, octokit, config ) => {
 	const { owner, repo } = context.repo;
+	core.debug( 'Milestone: ' + config.targetMilestone );
+	core.debug( 'MIlestone: ' + JSON.stringify( config.targetMilestone ) );
 	core.debug( 'context: ' + JSON.stringify( context ) );
 };
 
@@ -35513,6 +35517,14 @@ function wrappy (fn, cb) {
     return ret
   }
 }
+
+
+/***/ }),
+
+/***/ 6938:
+/***/ ((module) => {
+
+module.exports = eval("require")("./config");
 
 
 /***/ }),
