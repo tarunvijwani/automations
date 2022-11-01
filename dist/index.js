@@ -2346,12 +2346,19 @@ module.exports = runner;
  * External dependencies
  */
 const core = __webpack_require__( 2186 );
+const { getMilestoneByTitle } = __webpack_require__( 1606 );
 
 module.exports = async ( context, octokit, config ) => {
 	const { owner, repo } = context.repo;
-	core.debug( 'Milestone: ' + config.targetMilestone );
-	core.debug( 'MIlestone: ' + JSON.stringify( config.targetMilestone ) );
-	core.debug( 'context: ' + JSON.stringify( context ) );
+	const targetMilestone = config.targetMilestone;
+	// Get existing milestone
+	const milestone = await getMilestoneByTitle(
+		context,
+		octokit,
+		targetMilestone,
+		'closed'
+	);
+	core.debug( 'milestone: ' + JSON.stringify( milestone ) );
 };
 
 
