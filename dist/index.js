@@ -2309,18 +2309,18 @@ const debug = __webpack_require__( 5800 );
 const updateMilestoneHandler = __webpack_require__( 8223 );
 
 const runnerMatrix = {
-	release: updateMilestoneHandler,
 	release: {
 		published: updateMilestoneHandler,
 	},
 };
 const getRunnerTask = ( eventName, action ) => {
-	if ( ! runnerMatrix[ eventName ] ) {
+	if (
+		! runnerMatrix[ eventName ] ||
+		! runnerMatrix[ eventName ][ action ]
+	) {
 		return;
 	}
-	return action === undefined
-		? runnerMatrix[ eventName ]
-		: runnerMatrix[ eventName ][ action ];
+	return runnerMatrix[ eventName ][ action ];
 };
 
 const runner = async ( context, octokit, config ) => {
